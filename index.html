@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>বাংলা বাইবেল অনুসন্ধান - Bangla Bible Search</title>
+    <style>
+        body {
+            font-family: 'SolaimanLipi', 'Siyam Rupali', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 0;
+        }
+        
+        header {
+            background-color: #2c3e50;
+            color: white;
+            padding: 1rem 0;
+            text-align: center;
+            border-bottom: 4px solid #8e44ad;
+        }
+        
+        .logo {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .cross {
+            color: gold;
+            font-size: 1.5rem;
+            margin: 0 10px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .search-section {
+            background-color: #3498db;
+            padding: 2rem;
+            border-radius: 5px;
+            margin: 2rem 0;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        .search-box {
+            display: flex;
+            margin-bottom: 1rem;
+        }
+        
+        #search-input {
+            flex: 1;
+            padding: 12px;
+            font-size: 1.1rem;
+            border: none;
+            border-radius: 4px 0 0 4px;
+        }
+        
+        #search-button {
+            padding: 12px 20px;
+            background-color: #2c3e50;
+            color: white;
+            border: none;
+            border-radius: 0 4px 4px 0;
+            cursor: pointer;
+            font-size: 1.1rem;
+        }
+        
+        .search-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 1rem;
+        }
+        
+        select {
+            padding: 8px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+        }
+        
+        .results {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+        }
+        
+        .verse {
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .verse-reference {
+            font-weight: bold;
+            color: #8e44ad;
+        }
+        
+        .feedback {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+        }
+        
+        .rating {
+            margin-bottom: 1rem;
+        }
+        
+        .star {
+            font-size: 1.5rem;
+            color: #ddd;
+            cursor: pointer;
+            display: inline-block;
+        }
+        
+        .star.active {
+            color: gold;
+        }
+        
+        .quick-feedback {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+        
+        .feedback-btn {
+            padding: 8px 15px;
+            background-color: #eee;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+        }
+        
+        .feedback-btn:hover {
+            background-color: #3498db;
+            color: white;
+        }
+        
+        #comment {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            min-height: 100px;
+        }
+        
+        #submit-feedback {
+            padding: 10px 20px;
+            background-color: #2c3e50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        
+        .donation {
+            background-color: #f1c40f;
+            padding: 2rem;
+            border-radius: 5px;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        
+        .donation h2 {
+            color: #c0392b;
+        }
+        
+        .donation-info {
+            background-color: white;
+            padding: 1rem;
+            border-radius: 4px;
+            display: inline-block;
+            margin-top: 1rem;
+            font-weight: bold;
+        }
+        
+        footer {
+            background-color: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 1rem 0;
+            margin-top: 2rem;
+        }
+        
+        @media (max-width: 768px) {
+            .search-box {
+                flex-direction: column;
+            }
+            
+            #search-input {
+                border-radius: 4px;
+                margin-bottom: 10px;
+            }
+            
+            #search-button {
+                border-radius: 4px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <span class="cross">✝</span> বাংলা বাইবেল অনুসন্ধান <span class="cross">✝</span>
+            </div>
+            <p>শব্দ বা বাক্যাংশ দিয়ে বাইবেলের আয়াত খুঁজুন</p>
+        </div>
+    </header>
+    
+    <div class="container">
+        <section class="search-section">
+            <h2>আয়াত খুঁজুন</h2>
+            <div class="search-box">
+                <input type="text" id="search-input" placeholder="বাইবেলের আয়াত খুঁজুন...">
+                <button id="search-button">অনুসন্ধান</button>
+            </div>
+            <div class="search-options">
+                <select id="book-select">
+                    <option value="">সমস্ত বই (All Books)</option>
+                    <option value="genesis">আদিপুস্তক (Genesis)</option>
+                    <option value="exodus">যাত্রাপুস্তক (Exodus)</option>
+                    <!-- Add all Bible books here -->
+                </select>
+                <select id="testament-select">
+                    <option value="">সমস্ত নিয়ম (Both Testaments)</option>
+                    <option value="old">পুরাতন নিয়ম (Old Testament)</option>
+                    <option value="new">নতুন নিয়ম (New Testament)</option>
+                </select>
+            </div>
+        </section>
+        
+        <section class="results" id="results">
+            <h2>অনুসন্ধান ফলাফল</h2>
+            <p>এখানে আপনার অনুসন্ধান ফলাফল দেখানো হবে। একটি শব্দ বা বাক্যাংশ লিখুন এবং "অনুসন্ধান" বাটনে ক্লিক করুন।</p>
+            <!-- Results will be inserted here by JavaScript -->
+        </section>
+        
+        <section class="feedback">
+            <h2>আপনার মতামত দিন</h2>
+            <div class="rating">
+                <span>রেটিং:</span>
+                <span class="star" data-rating="1">★</span>
+                <span class="star" data-rating="2">★</span>
+                <span class="star" data-rating="3">★</span>
+                <span class="star" data-rating="4">★</span>
+                <span class="star" data-rating="5">★</span>
+            </div>
+            <div class="quick-feedback">
+                <button class="feedback-btn" data-feedback="Very nice">খুব ভালো</button>
+                <button class="feedback-btn" data-feedback="Superb">অসাধারণ</button>
+                <button class="feedback-btn" data-feedback="Amazing">আশ্চর্যজনক</button>
+                <button class="feedback-btn" data-feedback="Life changing">জীবন পরিবর্তনকারী</button>
+            </div>
+            <textarea id="comment" placeholder="আপনার মতামত লিখুন..."></textarea>
+            <button id="submit-feedback">জমা দিন</button>
+        </section>
+        
+        <section class="donation">
+            <h2><span class="cross">✝</span> এই মিনিস্ট্রিকে সমর্থন করুন <span class="cross">✝</span></h2>
+            <p>এই বাইবেল সেবা চালিয়ে রাখতে এবং উন্নত করতে আপনার সহায়তা প্রয়োজন। অনুগ্রহ করে নিচের তথ্য ব্যবহার করে অনুদান পাঠান:</p>
+            <div class="donation-info">
+                <p>বিকাশ/নগদ: <strong>+880-1300325329</strong></p>
+                <p><em>শুধুমাত্র সরাসরি পাঠান, ক্যাশ আউট করবেন না</em></p>
+                <p>আপনার দান এই মিনিস্ট্রি চালিয়ে যেতে সাহায্য করবে। ধন্যবাদ!</p>
+            </div>
+        </section>
+    </div>
+    
+    <footer>
+        <div class="container">
+            <p>© 2023 বাংলা বাইবেল অনুসন্ধান | সকল অধিকার সংরক্ষিত</p>
+            <p>✝ যীশু খ্রীষ্টই প্রভু ✝</p>
+        </div>
+    </footer>
+    
+    <script>
+        // Sample Bangla Bible data (in a real app, this would come from a database)
+        const banglaBible = [
+            {
+                reference: "যোহন 3:16",
+                text: "কারণ ঈশ্বর জগৎকে এমন ভালবাসেন যে, তিনি নিজের একজাত পুত্রকে দান করেছেন, যাতে যে কেউ তাঁতে বিশ্বাস করে সে বিনষ্ট না হয়, কিন্তু অনন্ত জীবন পায়।",
+                book: "john",
+                testament: "new"
+            },
+            {
+                reference: "গীতসংহিতা 23:1",
+                text: "প্রভুই আমার মেষপালক; আমি অভাবগ্রস্ত হব না।",
+                book: "psalms",
+                testament: "old"
+            },
+            {
+                reference: "ফিলিপীয় 4:13",
+                text: "আমি খ্রীষ্টের মধ্যে শক্তিমান হয়ে সব কিছু করতে পারি যিনি আমাকে শক্তি দেন।",
+                book: "philippians",
+                testament: "new"
+            },
+            // Add more verses here...
+        ];
+        
+        // Search functionality
+        document.getElementById('search-button').addEventListener('click', searchVerses);
+        document.getElementById('search-input').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') searchVerses();
+        });
+        
+        function searchVerses() {
+            const searchTerm = document.getElementById('search-input').value.toLowerCase();
+            const bookFilter = document.getElementById('book-select').value;
+            const testamentFilter = document.getElementById('testament-select').value;
+            
+            const resultsContainer = document.getElementById('results');
+            resultsContainer.innerHTML = '<h2>অনুসন্ধান ফলাফল</h2>';
+            
+            if (!searchTerm) {
+                resultsContainer.innerHTML += '<p>অনুসন্ধান করার জন্য একটি শব্দ বা বাক্যাংশ লিখুন।</p>';
+                return;
+            }
+            
+            const filteredVerses = banglaBible.filter(verse => {
+                const matchesText = verse.text.toLowerCase().includes(searchTerm);
+                const matchesBook = !bookFilter || verse.book === bookFilter;
+                const matchesTestament = !testamentFilter || verse.testament === testamentFilter;
+                
+                return matchesText && matchesBook && matchesTestament;
+            });
+            
+            if (filteredVerses.length === 0) {
+                resultsContainer.innerHTML += '<p>আপনার অনুসন্ধানের সাথে মিলে এমন কোনো আয়াত পাওয়া যায়নি।</p>';
+                return;
+            }
+            
+            filteredVerses.forEach(verse => {
+                const verseElement = document.createElement('div');
+                verseElement.className = 'verse';
+                verseElement.innerHTML = `
+                    <div class="verse-reference">${verse.reference}</div>
+                    <div class="verse-text">${verse.text}</div>
+                `;
+                resultsContainer.appendChild(verseElement);
+            });
+        }
+        
+        // Rating system
+        const stars = document.querySelectorAll('.star');
+        let currentRating = 0;
+        
+        stars.forEach(star => {
+            star.addEventListener('click', function() {
+                const rating = parseInt(this.getAttribute('data-rating'));
+                currentRating = rating;
+                
+                stars.forEach((s, index) => {
+                    if (index < rating) {
+                        s.classList.add('active');
+                    } else {
+                        s.classList.remove('active');
+                    }
+                });
+            });
+        });
+        
+        // Quick feedback buttons
+        const feedbackButtons = document.querySelectorAll('.feedback-btn');
+        const commentBox = document.getElementById('comment');
+        
+        feedbackButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const feedback = this.getAttribute('data-feedback');
+                commentBox.value = feedback;
+            });
+        });
+        
+        // Submit feedback
+        document.getElementById('submit-feedback').addEventListener('click', function() {
+            const comment = commentBox.value;
+            
+            if (!comment) {
+                alert('অনুগ্রহ করে আপনার মতামত লিখুন।');
+                return;
+            }
+            
+            alert(`ধন্যবাদ! আপনার রেটিং: ${currentRating}/5\nমতামত: "${comment}"\nআপনার মূল্যবান মতামত আমাদের জন্য গুরুত্বপূর্ণ।`);
+            
+            // Reset form
+            stars.forEach(star => star.classList.remove('active'));
+            currentRating = 0;
+            commentBox.value = '';
+        });
+    </script>
+</body>
+</html>
